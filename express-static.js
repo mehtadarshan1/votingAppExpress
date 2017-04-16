@@ -26,17 +26,18 @@ app.post('/login', function (req, res) {
   		var collection = db.collection("players");
   		collection.find({"username":req.body.username}).toArray(function (err,result){
   			if(err){
-  				res.status(500);
+  				res.sendStatus(500);
 
   			} else if(result.length == 1 && req.body.password==result[0].password){
  				 res.send({"status":"OK"});
   			}else {
-  				res.status(400);
+  				res.sendStatus(400);
   			}
 
-  			db.close();
   		});
   	}
+    db.close();
+
   });
   
 });
