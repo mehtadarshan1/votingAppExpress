@@ -7,7 +7,7 @@ function login(){
 	data.passwd = $("#password").val();
 
 	$.ajax({
-	    url: 'login', // your api url
+	    url: '/login', // your api url
 	    method: 'POST', // method is any HTTP method
 	    data: data, // data as js object
 	    success: function(response) {
@@ -31,7 +31,7 @@ function getVotes(){
 	var data = {};
 	console.log(data);
 	$.ajax({
-	    url: 'getVotes', // your api url
+	    url: '/getVotes', // your api url
 	    method: 'GET', // method is any HTTP method
 	    data: data, // data as js object
 	    success: function(response) {
@@ -51,7 +51,7 @@ function updateVote(){
 	data.vote = $("input[name='my_choice']:checked").val();
 	console.log(data);
 	$.ajax({
-	    url: 'updateVote', // your api url
+	    url: '/updateVote', // your api url
 	    method: 'POST', // method is any HTTP method
 	    data: data, // data as js object
 	    success: function(response) {

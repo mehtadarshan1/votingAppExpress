@@ -23,17 +23,15 @@ app.post('/login', function (req, res) {
 
   	} else {
   		console.log("connected to database");
-  		var collection = db.collection("users");
+  		var collection = db.collection("players");
   		collection.find({"username":req.body.username}).toArray(function (err,result){
   			if(err){
-  				res.send({"status":"BAD"});
+  				res.status(500);
 
-  			} else if(result.length == 1 && bcrypt.compareSync( req.body.password,result[0].password)){
-
-  				console.log(req.body);
- 				res.send({"status":"OK", "name": result[0].name});
+  			} else if(result.length == 1 && req.body.password==result[0].password){
+ 				 res.send({"status":"OK"});
   			}else {
-  				res.send({"status":"BAD", error: "username or password is Incorrect"});
+  				res.status(400);
   			}
 
   			db.close();
