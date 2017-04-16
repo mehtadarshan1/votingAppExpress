@@ -187,6 +187,6 @@ app.get('/:user/score', function (req, res) {
 });
 
 
-app.listen(8000, function () {
-  console.log('Example app listening on port 8000!');
+app.listen(10570, function () {
+  console.log('Example app listening on port 10570!');
 });
