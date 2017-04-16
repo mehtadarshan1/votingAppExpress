@@ -101,11 +101,10 @@ app.get('/getVotes', function (req, res) {
 
       collection.find({vote: 'dontextend'}).toArray(function (err,result){
         response.dontextend=result.length;
-              console.log(response);
+        res.send(response);
 
       });
-      console.log(response);
-      res.send(response);   
+         
     }
    db.close(); 
   });
