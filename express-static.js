@@ -25,6 +25,7 @@ app.post('/login', function (req, res) {
   		console.log("connected to database");
   		var collection = db.collection("players");
   		collection.find({"username":req.body.username}).toArray(function (err,result){
+        console.log(result);
   			if(err){
   				res.sendStatus(500);
 
