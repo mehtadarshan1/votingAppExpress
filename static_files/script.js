@@ -66,7 +66,7 @@ function updateVote(){
 }
 
 // timer
-//setInterval(function(){getVotes()},5000);
+setInterval(function(){getVotes()},5000);
 
 function showLogin(value){
 	if(value){
