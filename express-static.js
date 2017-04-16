@@ -1,10 +1,8 @@
 /* What about serving up static content, kind of like apache? */
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 var mongo = require("mongodb").MongoClient;
-var bcrypt = require('bcrypt');
 
 var url = "mongodb://mehtada3:05270@mcsdb.utm.utoronto.ca:27017/mehtada3_309";
 // static_files has all of statically returned content
@@ -15,8 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended:true
 }));
-
-app.use(cookieParser());
 
 /*Validate User Login*/
 app.post('/login', function (req, res) {
@@ -191,6 +187,6 @@ app.get('/:user/score', function (req, res) {
 });
 
 
-app.listen(10570, function () {
-  console.log('Example app listening on port 10570!');
+app.listen(8000, function () {
+  console.log('Example app listening on port 8000!');
 });

@@ -1,0 +1,52 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script language="javascript" src="jquery.php"></script>
+        <script language="javascript" src="script.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Voting Page</title>
+    </head>
+    <body>
+
+    		<div id="loginPage">
+    			<h1>Login</h1>
+	            <form>
+	                <fieldset>
+	                    <legend>Login</legend>
+	                    User Name: <input type="text" id="username" required></input>
+	                    Password: <input type="password" id="password" required></input> 
+						<button onclick="login();" type="button">Create Account</button>	                
+                    </fieldset>
+                    <span id="error"></span>
+	            </form>
+    		</div>        
+
+            <div id="votePage" style="display:none">
+		    	<h1>Vote on 309 Exam Cancellation </h1>
+				<div id="user"></div>
+				<form>
+					<input type="radio" name="my_choice" value="extend" > Cancel the Exam! Everyone gets a 3.9 GPA<br>
+					<input type="radio" name="my_choice" value="dontextend" > No don't cancel the Exam! I wanna die!<br>
+					<button onclick="updateVote();" type="button" >Update Votes</button>
+				</form>
+				<span id="voteError"></span>
+
+				<h2>Current Vote Results</h2>
+			        <table border='1'>
+			        	<tr>
+			        		<th>Vote</th>
+			        		<th>Count</th>
+			        	</tr>
+			        	<tr>
+			        		<td>extend</td>
+			        		<td id='extend'></td>
+			        	</tr>
+			        	<tr>
+			        		<td>dontextend</td>
+			        		<td id='dontextend'></td>
+			        	</tr>
+			        </table>
+			</div>
+
+    </body>
+</html>
