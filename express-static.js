@@ -50,9 +50,8 @@ app.post('/updateVote', function (req, res) {
   		console.error(err);
 
   	} else {
-  		var collection = db.collection("users");
+  		var collection = db.collection("players");
   		collection.find({"username":req.body.username}).toArray(function (err,result){
-        console.log(result);
   			if(err){
   				res.send({"status":"BAD"});
 
