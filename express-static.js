@@ -52,6 +52,7 @@ app.post('/updateVote', function (req, res) {
   	} else {
   		var collection = db.collection("users");
   		collection.find({"username":req.body.username}).toArray(function (err,result){
+        console.log(result);
   			if(err){
   				res.send({"status":"BAD"});
 
@@ -90,7 +91,6 @@ app.get('/getVotes', function (req, res) {
 
       collection.find({vote: 'extend'}).toArray(function (err,result){
         response.extend=result.length;
-              console.log(response);
 
       });
 
