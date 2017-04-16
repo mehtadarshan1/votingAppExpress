@@ -4,7 +4,7 @@ function login(){
 	// api launch 
 	var data = {};
 	data.username = $("#username").val();
-	data.passwd = $("#password").val();
+	data.password = $("#password").val();
 
 	$.ajax({
 	    url: '/login', // your api url
