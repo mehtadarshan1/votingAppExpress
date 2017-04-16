@@ -42,47 +42,6 @@ app.post('/login', function (req, res) {
   
 });
 
-/*Register new User*/
-app.put('/register', function (req, res) {
-  console.log(req.body);
-
-  //var salt = bcrypt.genSaltSync(10);
-  var hash = bcrypt.hashSync(req.body.password,10);
-
-  var newUser = {
-  	username: req.body.username,
-  	password: hash,
-  	name: req.body.name
-  }
-  // insert the user
-  mongo.connect(url, function(err,db){
-  	if(err){
-  		console.error(err);
-
-  	} else {
-  		console.log("connected to database");
-  		var collection = db.collection("users");
-  		collection.find({username: newUser.username}).toArray(function (err, result) {
-  			console.log(result);
-  			if (result.length != 0){
-  				res.send({"status":"BAD",error: "username exists"});
-  			}else{
-  				collection.insertOne(newUser, function(err,result){
-		  			if(err){
-		  				console.log(err);
-		  				res.send({"status":"BAD"});
-		  			} else{
-		 				res.send({"status":"OK"});
-		  			}
-	  			});
-  			}
-  			db.close();
-  		});
-  	}
-  	
-  });
-});
-
 /*Update user password*/
 app.post('/user/update', function (req, res) {
   console.log(req.body);
@@ -123,68 +82,31 @@ app.post('/user/update', function (req, res) {
   
 });
 
-
-/*Add player score*/
-app.put('/user/score', function (req, res) {
-  console.log(req.body);
-
-  //var salt = bcrypt.genSaltSync(10);
-
-  var newScore = {
-    username: req.body.username,
-    world: req.body.world,
-    level: req.body.level,
-    score: req.body.score,
-    time: req.body.time,
-    date: req.body.date
-  }
-  // insert the user
-  mongo.connect(url, function(err,db){
-    if(err){
-      console.error(err);
-
-    } else {
-      console.log("connected to database");
-      var collection = db.collection("scores");
-      collection.insertOne(newScore, function(err,result){
-        if(err){
-            console.log(err);
-            res.send({"status":"BAD"});
-        } else{
-          res.send({"status":"OK"});
-        }
-      }); 
-    }
-   db.close(); 
-  });
-});
-
-
-app.get('/:user/score', function (req, res) {
-  console.log();
+/*Get all votes*/
+app.get('/getVotes', function (req, res) {
 
   // get the user
   mongo.connect(url, function(err,db){
     if(err){
-      console.error(err);
-
+      res.sendStatus(500);
     } else {
       console.log("connected to database");
-      var collection = db.collection("scores");
+      var collection = db.collection("players");
+      var response = {status:"OK"};
 
-      collection.find({username: req.params.user}).toArray(function (err,result){
-        if(err){
-          res.send({"status":"BAD"});
-        } else{
-          console.log(result);
-          res.send({"status": "OK", result: result});   
-        } 
+      collection.find({vote: 'extend'}).toArray(function (err,result){
+        response.extend=result.length;
       });
+
+      collection.find({vote: 'dontextend'}).toArray(function (err,result){
+        response.dontextend=result.length;
+      });
+
+      res.send(response);   
     }
    db.close(); 
   });
 });
-
 
 app.listen(10570, function () {
   console.log('Example app listening on port 10570!');
