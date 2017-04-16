@@ -43,37 +43,31 @@ app.post('/login', function (req, res) {
 });
 
 /*Update user password*/
-app.post('/user/update', function (req, res) {
-  console.log(req.body);
+app.post('/updateVote', function (req, res) {
   mongo.connect(url, function(err,db){
   	if(err){
   		console.error(err);
 
   	} else {
-  		console.log("connected to database");
   		var collection = db.collection("users");
   		collection.find({"username":req.body.username}).toArray(function (err,result){
   			if(err){
   				res.send({"status":"BAD"});
 
-  			} else if(result.length == 1 && bcrypt.compareSync( req.body.oldPassword,result[0].password)){
-  				console.log("password was coreect");
- 				//res.send({"status":"OK", "name": result[0].name});
- 				var hash = bcrypt.hashSync(req.body.newPassword,10);
+  			} else if(result.length == 1){
 
-			  	collection.update({username:req.body.username}, {$set: {username: req.body.userUpdate, password: hash} }, function (err, result){
+			  	collection.update({username:req.body.username}, {$set: { vote: req.body.vote} }, function (err, result){
 			  		if (err){
-			  			console.log(err);
-			  			res.send({"status":"BAD"});
+			  			res.sendStatus(500);
 
 			  		} else{
 			  			console.log("updated");
 			  			res.send({"status":"OK"});
 			  		}
 			  	});	
-  			}else {
-  				res.send({"status":"BAD", error: "Old Password is Incorrect"});
-  			}
+  			}else{
+          res.sendStatus(400);
+        }
 
   			db.close();
   		});
@@ -103,8 +97,7 @@ app.get('/getVotes', function (req, res) {
         response.dontextend=result.length;
         res.send(response);
 
-      });
-         
+      }); 
     }
    db.close(); 
   });
