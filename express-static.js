@@ -95,10 +95,14 @@ app.get('/getVotes', function (req, res) {
 
       collection.find({vote: 'extend'}).toArray(function (err,result){
         response.extend=result.length;
+              console.log(response);
+
       });
 
       collection.find({vote: 'dontextend'}).toArray(function (err,result){
         response.dontextend=result.length;
+              console.log(response);
+
       });
       console.log(response);
       res.send(response);   
