@@ -44,6 +44,7 @@ app.post('/login', function (req, res) {
 
 /*Update user password*/
 app.post('/updateVote', function (req, res) {
+  console.log(req.body);
   mongo.connect(url, function(err,db){
   	if(err){
   		console.error(err);
