@@ -90,7 +90,6 @@ app.get('/getVotes', function (req, res) {
     if(err){
       res.sendStatus(500);
     } else {
-      console.log("connected to database");
       var collection = db.collection("players");
       var response = {status:"OK"};
 
@@ -101,7 +100,7 @@ app.get('/getVotes', function (req, res) {
       collection.find({vote: 'dontextend'}).toArray(function (err,result){
         response.dontextend=result.length;
       });
-
+      console.log(response);
       res.send(response);   
     }
    db.close(); 
